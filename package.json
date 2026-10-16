@@ -1,0 +1,12 @@
+{
+  "name": "observatory-tycoon",
+  "version": "0.1.0",
+  "description": "Classroom multiplayer strategy game: build an observatory, win grants, do science",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "sim": "node test/simulate.js"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

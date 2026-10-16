@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observatory Tycoon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="landing">
+    <div style="font-size:4rem">🔭</div>
+    <h1>Observatory Tycoon</h1>
+    <p class="muted">Build an observatory, win grants, do science!</p>
+    <form id="joinForm" class="card">
+      <input id="code" class="code-input" maxlength="4" placeholder="CODE" autocomplete="off" required>
+      <input id="name" maxlength="16" placeholder="Your first name" autocomplete="off" required>
+      <button class="big" type="submit">Join game</button>
+    </form>
+    <p class="small muted" style="margin-top:2rem">Teacher? <a href="host.html" style="color:var(--accent)">Host a game on the projector</a></p>
+  </main>
+  <script src="common.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    if (params.get('code')) $('#code').value = params.get('code');
+    $('#joinForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      try {
+        const { code, pid } = await post('/api/join', { code: $('#code').value, name: $('#name').value });
+        store.set('otPlayer', { code, pid });
+        location.href = 'play.html';
+      } catch (err) { toast(err.message); }
+    });
+  </script>
+</body>
+</html>
